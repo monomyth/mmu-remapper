@@ -1,19 +1,19 @@
 ---
 name: Feature request
-about: Suggest an idea or new format support
+about: Suggest a new feature or 3MF format support
 title: ''
-labels: enhancement
+labels: 'enhancement'
 assignees: ''
 ---
 
 **Is your feature request related to a problem?**
-A clear description of what the problem is. Ex. "I am frustrated when [...]"
+A clear description of what problem this would solve.
 
 **Describe the solution you'd like**
-A clear description of what you want to happen.
+What would you like to see added or changed?
 
 **Describe alternatives you've considered**
-Any other solutions or workarounds you've thought about.
+Any workarounds or other approaches?
 
 **Additional context**
-Screenshots, example 3MF files (anonymized), or links to relevant discussions.
+Screenshots, example 3MF files (anonymized if needed), or links.
