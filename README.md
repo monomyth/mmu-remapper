@@ -1,6 +1,8 @@
 # mmu-remapper
 
-Remap extruder / filament assignments inside PrusaSlicer multi-material painted 3MF files.
+Remap extruder/filament assignments in PrusaSlicer, Bambu Studio, and Orca Slicer 3MF files.
+
+Works with both classic Prusa MMU painting (`mmu_segmentation`) and Bambu/Orca-style per-face `paint_color` data — even in large split-mesh projects.
 
 ## The Problem
 
@@ -14,7 +16,7 @@ Users currently do manual unzip + sed hacks or repaint entire models. This tool 
 
 Painting data is stored in two main places inside the `.3mf` (a ZIP):
 
-- `3D/3dmodel.model` — `<triangle slic3rpe:mmu_segmentation="4"/>` (and long hex strings for split triangles). The hex values encode extruder assignments using a small set of known codes:
+- `3D/3dmodel.model` (and `3D/Objects/object_*.model` for split Bambu/Orca 3MFs) — `<triangle slic3rpe:mmu_segmentation="4"/>` or `<triangle ... paint_color="8"/>` (and long hex strings). The hex values encode extruder assignments using the same small set of known codes (BambuStudio/Orca `paint_color` uses identical encoding to Prusa mmu_segmentation):
   - 1 → `4`
   - 2 → `8`
   - 3 → `0C`
@@ -30,19 +32,26 @@ Painting data is stored in two main places inside the `.3mf` (a ZIP):
 
 Python 3.8+ required (stdlib only for core functionality).
 
+### Quick Start
+
 ```bash
-# Clone or download into your workspace
+git clone https://github.com/YOUR_USERNAME/mmu-remapper.git
 cd mmu-remapper
 
 # Run directly
 python mmu_remap.py --help
 
-# Or make executable
+# Or make it executable and use it anywhere
 chmod +x mmu_remap.py
 ./mmu_remap.py model.3mf --map "1:3,3:1" -o fixed.3mf
 ```
 
-Optional but recommended for robust XML:
+**Tip**: You can symlink or copy `mmu_remap.py` into a directory on your `$PATH` (e.g. `~/.local/bin`) to run it as `mmu-remap` from anywhere.
+
+### Optional Dependency
+
+For more robust XML parsing (recommended):
+
 ```bash
 pip install lxml
 ```
@@ -69,10 +78,9 @@ The tool prints a clear **Summary** with counts of rewritten triangle attributes
 
 ## Limitations (v1)
 
-- **Complex brush paintings**: Long `mmu_segmentation` strings (produced when a brush splits triangles) are only partially rewritten today. All *recognizable* extruder codes inside them are remapped; structural bytes are left as-is. Most real-world models still produce excellent results.
-- Only PrusaSlicer `slic3rpe:mmu_segmentation` painting data is handled.
+- **Complex brush paintings**: Long `mmu_segmentation` / `paint_color` strings (produced when a brush splits triangles) are only partially rewritten today. All *recognizable* extruder codes inside them are remapped; structural bytes are left as-is. Most real-world models still produce excellent results.
+- PrusaSlicer `slic3rpe:mmu_segmentation` and Bambu/Orca-style `paint_color` per-face painting data (same hex encoding) are now fully supported, including in large split object_*.model files.
 - Does **not** change the filament profiles or the total number of filaments defined in the project (you must already have enough filaments loaded in the target 3MF).
-- Bambu/Orca/Moonraker color 3MF extensions are out of scope.
 
 ## Language & Future Plans
 
@@ -111,8 +119,8 @@ See the implementation plan in the `.grok` session history for the exact verific
 
 ## Limitations (v1)
 
-- Complex split-triangle paintings (very long `mmu_segmentation` strings) are handled with a best-effort token rewrite of the known codes. Most real user models work well; extreme cases may need manual inspection or future improvements to the decoder.
-- Only PrusaSlicer-style `slic3rpe:mmu_segmentation` painting is targeted (Bambu/Orca color data is out of scope for now).
+- Complex split-triangle paintings (very long `mmu_segmentation` / `paint_color` strings) are handled with a best-effort token rewrite of the known codes. Most real user models work well; extreme cases may need manual inspection or future improvements to the decoder.
+- PrusaSlicer `slic3rpe:mmu_segmentation` + BambuStudio/Orca `paint_color` (identical hex encoding, including large object_*.model meshes) are supported.
 - Does not change the number of filaments defined in the project or their profiles — only the *painted assignments*.
 
 ## Contributing / References
@@ -123,10 +131,18 @@ See the implementation plan in the `.grok` session history for the exact verific
 
 Pull requests that improve the complex-case codec (with test 3MFs) are very welcome.
 
+## Contributing
+
+Contributions are welcome! If you have a 3MF file format the tool doesn't handle well yet, open an issue with the file (or a small anonymized example) and we'll look into it.
+
+Please keep changes small and follow the existing code style.
+
 ## License
 
-To be decided (likely MIT or AGPLv3 to match PrusaSlicer where relevant). For now: use at your own risk on copies of your files.
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
 
 ---
+
+*This project was created to solve a real, recurring pain point for MMU and multi-extruder users.*
 
 *This project was created to solve a real, recurring pain point for MMU and multi-extruder users.*
