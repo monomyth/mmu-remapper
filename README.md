@@ -38,7 +38,7 @@ Python 3.8+ required (stdlib only for core functionality).
 ### Quick Start (Recommended)
 
 ```bash
-pip install git+https://github.com/YOUR_USERNAME/mmu-remapper.git
+pip install git+https://github.com/monomyth/mmu-remapper.git
 
 mmu-remap model.3mf --map "1:3,3:1" -o fixed.3mf
 ```
@@ -46,7 +46,7 @@ mmu-remap model.3mf --map "1:3,3:1" -o fixed.3mf
 ### Development Install
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/mmu-remapper.git
+git clone https://github.com/monomyth/mmu-remapper.git
 cd mmu-remapper
 pip install -e ".[lxml]"
 mmu-remap --help

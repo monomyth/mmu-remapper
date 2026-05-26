@@ -8,9 +8,11 @@ version = "0.1.0"
 description = "Remap extruder/filament assignments in PrusaSlicer, Bambu Studio, and Orca Slicer 3MF files"
 readme = "README.md"
 license = {text = "MIT"}
+long_description_content_type = "text/markdown"
+license-files = ["LICENSE"]
 requires-python = ">=3.8"
 authors = [
-    {name = "mmu-remapper contributors"}
+    {name = "Eugene Ray"}
 ]
 keywords = ["3d-printing", "3mf", "prusaslicer", "bambu", "orca-slicer", "mmu", "multimaterial"]
 classifiers = [
@@ -35,9 +37,9 @@ lxml = ["lxml>=4.9"]
 mmu-remap = "mmu_remap:main"
 
 [project.urls]
-Homepage = "https://github.com/YOUR_USERNAME/mmu-remapper"
-Repository = "https://github.com/YOUR_USERNAME/mmu-remapper"
-Issues = "https://github.com/YOUR_USERNAME/mmu-remapper/issues"
+Homepage = "https://github.com/monomyth/mmu-remapper"
+Repository = "https://github.com/monomyth/mmu-remapper"
+Issues = "https://github.com/monomyth/mmu-remapper/issues"
 
 [tool.setuptools]
 py-modules = ["mmu_remap", "codec"]
