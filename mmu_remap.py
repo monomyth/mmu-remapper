@@ -7,6 +7,8 @@ multi-material painted 3MF files.
 See README.md and the approved implementation plan for full context.
 """
 
+__version__ = "0.1.0"
+
 import argparse
 import sys
 import tempfile
@@ -619,8 +621,9 @@ def perform_remap(
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Remap extruder assignments in PrusaSlicer painted 3MF files."
+        description="Remap extruder/filament assignments in PrusaSlicer, Bambu Studio, and Orca Slicer 3MF files."
     )
+    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     parser.add_argument("input", type=Path, help="Input .3mf file")
     parser.add_argument("-o", "--output", type=Path, default=None,
                         help="Output .3mf (defaults to <input>.remapped.3mf)")

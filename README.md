@@ -1,5 +1,8 @@
 # mmu-remapper
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
+
 Remap extruder/filament assignments in PrusaSlicer, Bambu Studio, and Orca Slicer 3MF files.
 
 Works with both classic Prusa MMU painting (`mmu_segmentation`) and Bambu/Orca-style per-face `paint_color` data — even in large split-mesh projects.
@@ -32,21 +35,22 @@ Painting data is stored in two main places inside the `.3mf` (a ZIP):
 
 Python 3.8+ required (stdlib only for core functionality).
 
-### Quick Start
+### Quick Start (Recommended)
+
+```bash
+pip install git+https://github.com/YOUR_USERNAME/mmu-remapper.git
+
+mmu-remap model.3mf --map "1:3,3:1" -o fixed.3mf
+```
+
+### Development Install
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/mmu-remapper.git
 cd mmu-remapper
-
-# Run directly
-python mmu_remap.py --help
-
-# Or make it executable and use it anywhere
-chmod +x mmu_remap.py
-./mmu_remap.py model.3mf --map "1:3,3:1" -o fixed.3mf
+pip install -e ".[lxml]"
+mmu-remap --help
 ```
-
-**Tip**: You can symlink or copy `mmu_remap.py` into a directory on your `$PATH` (e.g. `~/.local/bin`) to run it as `mmu-remap` from anywhere.
 
 ### Optional Dependency
 

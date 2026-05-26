@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mmu-remapper"
+version = "0.1.0"
+description = "Remap extruder/filament assignments in PrusaSlicer, Bambu Studio, and Orca Slicer 3MF files"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+authors = [
+    {name = "mmu-remapper contributors"}
+]
+keywords = ["3d-printing", "3mf", "prusaslicer", "bambu", "orca-slicer", "mmu", "multimaterial"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Utilities",
+]
+
+dependencies = []
+
+[project.optional-dependencies]
+lxml = ["lxml>=4.9"]
+
+[project.scripts]
+mmu-remap = "mmu_remap:main"
+
+[project.urls]
+Homepage = "https://github.com/YOUR_USERNAME/mmu-remapper"
+Repository = "https://github.com/YOUR_USERNAME/mmu-remapper"
+Issues = "https://github.com/YOUR_USERNAME/mmu-remapper/issues"
+
+[tool.setuptools]
+py-modules = ["mmu_remap", "codec"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py38"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+ignore = ["E501"]
